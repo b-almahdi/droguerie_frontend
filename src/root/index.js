@@ -4,9 +4,10 @@ import { Route, Router, Switch, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from "history";
 
 import HomeComponent from '../home'
-import ProductComponent from '../product'
 import { getStore } from './store'
-import { HOME, PRODUCTS } from './paths'
+import { HOME, produits } from './paths'
+import NavBar from '../appBar';
+import ShopContainer from '../product/containers/ShopContainer';
 
 const history = createBrowserHistory();
 const store = getStore();
@@ -20,13 +21,20 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router history={history}>
-          <Switch>
-            <Fragment>
-              <Route exact path={`/${HOME}`} component={HomeComponent} />
-              <Route path={`/${PRODUCTS}`} component={ProductComponent} />
-            </Fragment>
-            <Redirect from="*" to={`/${HOME}`} />
-          </Switch>
+          <div className="App">
+            <NavBar />
+            <Switch>
+              <Fragment>
+                <Route exact path={`/${HOME}`} component={HomeComponent} />
+                <Route path={`/${produits}`} component={ShopContainer} />
+                <Route
+                  path="/ProdcutList"
+                  component={ShopContainer}
+                />
+              </Fragment>
+              <Redirect from="*" to={`/${HOME}`} />
+            </Switch>
+          </div>
         </Router>
       </Provider>
     )

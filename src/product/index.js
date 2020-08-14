@@ -1,20 +1,15 @@
 import React, { Fragment } from "react";
-import { Route, Switch } from 'react-router-dom';
-
-import ListProductsContainer from "./containers/ListProductsContainer";
-import AddProductContainer from "./containers/AddProductContainer";
-import { ADD_PRODUCT } from './paths'
+import { Switch } from 'react-router-dom';
 import './style.scss'
 
-export default class ProductComponent extends React.Component {
+export default class ProduitComponent extends React.Component {
 
   render() {
     return (
       <Switch>
         <Fragment>
-          <div>Product</div>
-          <Route exact path={this.props.match.path} component={ListProductsContainer} />
-          <Route exact path={`${this.props.match.path}/${ADD_PRODUCT}`} component={AddProductContainer} />
+          <div>Produit</div>
+
         </Fragment>
       </Switch>
     )

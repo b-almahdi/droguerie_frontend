@@ -1,8 +1,8 @@
 import { all } from 'redux-saga/effects'
-import { watchGetProducts } from '../product/sagaWatchers'
+import { watchGetProduits } from '../product/sagaWatchers'
 
 export default function* () {
   yield all([
-    watchGetProducts()
+    watchGetProduits()
   ])
 }
