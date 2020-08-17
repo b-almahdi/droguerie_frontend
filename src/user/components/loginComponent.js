@@ -12,7 +12,7 @@ import Container from "@material-ui/core/Container";
 import { Formik, Field } from "formik";
 import { LinearProgress } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
-import * as yup from 'yup';
+import * as yup from "yup";
 const styles = (theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -33,7 +33,7 @@ const styles = (theme) => ({
   },
 });
 const validationSchema = yup.object({
-  email: yup.string().email().required(),
+  username: yup.string().email().required(),
   password: yup.string().required().min(8),
 });
 class loginComponent extends Component {
@@ -51,20 +51,27 @@ class loginComponent extends Component {
           </Typography>
           <Formik
             initialValues={{
-              email: "",
+              username: "",
               password: "",
             }}
-
             validationSchema={validationSchema}
-            onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                setSubmitting(false);
-                alert(JSON.stringify(values, null, 2));
-              }, 500);
+            // onSubmit={(values, { setSubmitting }) => {
+            //   //this.props.logInUser(values);
+            //   console.log(values);
+            // }}
+            onSubmit={(values, actions) => {
+              //   // setFormData(values);
+              //   // nextStep();
+              //this.props.addUser(values, this.props.history);
+              this.props.logInUser(values);
+              console.log(values);
+              actions.setSubmitting(this.props.isSubmitting);
+
+              // actions.setSubmitting(this.props.isSubmitting);
             }}
           >
-            {({ submitForm, isSubmitting }) => (
-              <form className={classes.form} noValidate>
+            {({ submitForm, isSubmitting, handleSubmit }) => (
+              <form className={classes.form} onSubmit={handleSubmit}>
                 <Field
                   variant="outlined"
                   margin="normal"
@@ -72,7 +79,7 @@ class loginComponent extends Component {
                   fullWidth
                   id="email"
                   label="Email Address"
-                  name="email"
+                  name="username"
                   autoComplete="email"
                   autoFocus
                   component={TextField}
@@ -92,6 +99,7 @@ class loginComponent extends Component {
                   component={TextField}
                 />
                 {isSubmitting && <LinearProgress />}
+
                 <br />
                 <Button
                   variant="contained"

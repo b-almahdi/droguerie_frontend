@@ -2,12 +2,17 @@ import { connect } from "react-redux";
 import { LOGIN_USER } from "../actions";
 import loginComponent from "./../components/loginComponent";
 
+const mapStateToProps = (state) => {
+  return {
+    fetching: state.userReducer.isSubmitting,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
-    addUser: (user, history) => {
+    logInUser: (user, history) => {
       dispatch({ type: LOGIN_USER, value: user, history: history });
     },
   };
 };
 
-export default connect(null, mapDispatchToProps)(loginComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(loginComponent);
