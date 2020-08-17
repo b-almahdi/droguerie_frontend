@@ -1,13 +1,14 @@
-import React, { Component, Fragment } from 'react';
-import { Provider } from 'react-redux';
-import { Route, Router, Switch, Redirect } from 'react-router-dom';
+import React, { Component, Fragment } from "react";
+import { Provider } from "react-redux";
+import { Route, Router, Switch, Redirect } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
-import HomeComponent from '../home'
-import { getStore } from './store'
-import { HOME, produits } from './paths'
-import NavBar from '../appBar';
-import ShopContainer from '../product/containers/ShopContainer';
+import HomeComponent from "../home";
+import { getStore } from "./store";
+import { HOME, produits } from "./paths";
+import NavBar from "../appBar";
+import ShopContainer from "../product/containers/ShopContainer";
+import signUpContainer from "../user/containers/signUpContainer";
 
 const history = createBrowserHistory();
 const store = getStore();
@@ -16,7 +17,6 @@ store.subscribe(() => {
 });
 
 class App extends Component {
-
   render() {
     return (
       <Provider store={store}>
@@ -27,19 +27,16 @@ class App extends Component {
               <Fragment>
                 <Route exact path={`/${HOME}`} component={HomeComponent} />
                 <Route path={`/${produits}`} component={ShopContainer} />
-                <Route
-                  path="/ProdcutList"
-                  component={ShopContainer}
-                />
+                <Route path="/ProdcutList" component={ShopContainer} />
+                <Route path="/signup" component={signUpContainer} />
               </Fragment>
               <Redirect from="*" to={`/${HOME}`} />
             </Switch>
           </div>
         </Router>
       </Provider>
-    )
+    );
   }
-
 }
 
 export default App;
