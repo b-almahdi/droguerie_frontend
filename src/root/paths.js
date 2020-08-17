@@ -1,2 +1,2 @@
-export const produits = 'produits'
-export const HOME = ''
+export const produits = "produits";
+export const HOME = "";

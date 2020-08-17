@@ -1,7 +1,7 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import rootReducer from './reducers.js';
-import reduxSaga from 'redux-saga';
-import rootSaga from './sagas.js';
+import { createStore, applyMiddleware, compose } from "redux";
+import rootReducer from "./reducers.js";
+import reduxSaga from "redux-saga";
+import rootSaga from "./sagas.js";
 
 const localStorageMiddleware = ({ getState }) => {
   return (next) => (action) => {
@@ -17,21 +17,19 @@ const reHydrateStore = () => {
   }
 };
 
-
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-
 export const getStore = () => {
-  const initialState = {
-
-  };
+  const initialState = {};
   const reduxSagaMiddleware = reduxSaga();
 
-  const store = createStore(rootReducer, initialState,
+  const store = createStore(
+    rootReducer,
+    initialState,
     composeEnhancer(applyMiddleware(reduxSagaMiddleware)),
     reHydrateStore(),
-    localStorageMiddleware,
+    localStorageMiddleware
   );
-  reduxSagaMiddleware.run(rootSaga)
+  reduxSagaMiddleware.run(rootSaga);
   return store;
-}
+};

@@ -9,6 +9,7 @@ import { HOME, produits } from "./paths";
 import NavBar from "../appBar";
 import ShopContainer from "../product/containers/ShopContainer";
 import signUpContainer from "../user/containers/signUpContainer";
+import loginContainer from "../user/containers/loginContainer";
 
 const history = createBrowserHistory();
 const store = getStore();
@@ -29,6 +30,7 @@ class App extends Component {
                 <Route path={`/${produits}`} component={ShopContainer} />
                 <Route path="/ProdcutList" component={ShopContainer} />
                 <Route path="/signup" component={signUpContainer} />
+                <Route path="/login" component={loginContainer} />
               </Fragment>
               <Redirect from="*" to={`/${HOME}`} />
             </Switch>
