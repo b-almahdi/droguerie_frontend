@@ -1,6 +1,7 @@
 import { call, put } from "redux-saga/effects";
 
 import axios from "axios";
+import { toast } from "react-toastify";
 import {
   USER_CREATED,
   USER_CONNECTED,
@@ -37,6 +38,7 @@ export function* workerLogInUser(action) {
       console.log("Failed error");
       setSubmitting(false);
       setErrors({ msg: result.data.errorMessage });
+      toast.error(result.data.errorMessage);
       yield put({ type: USER_CONNECTED_COMPLETED });
     } else {
       const { token } = result.data.message;
@@ -47,12 +49,14 @@ export function* workerLogInUser(action) {
 
       console.log("user connected");
       setSubmitting(false);
+      toast.success("Connected");
       yield put({ type: USER_CONNECTED });
       yield put({ type: USER_CONNECTED_COMPLETED });
     }
   } catch {
     console.log("Failed");
     setSubmitting(false);
+    toast.error("error");
     setErrors({ msg: "error" });
     yield put({ type: USER_CONNECTED_COMPLETED });
   }

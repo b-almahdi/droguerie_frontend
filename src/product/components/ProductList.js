@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 
 import { Link } from "react-router-dom";
+import AddToCartModal from "./AddToCartModal";
 
 const styles = (theme) => ({
   card: {
@@ -33,13 +34,21 @@ class ProductList extends React.Component {
     super(props);
     this.state = {
       cart: [],
+      showModal: false,
     };
+    this.OpenModal = this.OpenModal.bind(this);
+  }
+  OpenModal() {
+    this.setState({
+      showModal: !this.state.showModal,
+    });
   }
   render() {
     const { item } = this.props;
 
     return (
       <>
+        {this.state.showModal && <AddToCartModal />}
         <Grid item xs={2} style={{ marginTop: 20, marginLeft: 30 }}>
           <Card className={styles.card}>
             <Link
@@ -62,18 +71,14 @@ class ProductList extends React.Component {
               </CardContent>
             </Link>
             <CardActions>
-              <Link to="/cart">
-
-
               <Button
                 size="small"
                 color="primary"
                 className={styles.button}
-                //   onClick={() => addToCart(item)}
+                onClick={() => this.OpenModal()}
               >
                 Add to Cart
               </Button>
-              </Link>
             </CardActions>
           </Card>
         </Grid>

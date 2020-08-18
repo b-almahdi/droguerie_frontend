@@ -7,12 +7,15 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { withStyles, InputLabel, MenuItem } from "@material-ui/core";
+import { withStyles } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { Formik, Field } from "formik";
 import { LinearProgress } from "@material-ui/core";
-import { TextField, Select } from "formik-material-ui";
+import { TextField } from "formik-material-ui";
 import * as yup from "yup";
+import { ToastContainer } from "react-toastify";
+import PropTypes from "prop-types";
+
 const styles = (theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -41,6 +44,7 @@ class loginComponent extends Component {
     const { classes } = this.props;
     return (
       <Container component="main" maxWidth="xs">
+        <ToastContainer autoClose={2000} />
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -49,6 +53,7 @@ class loginComponent extends Component {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+
           <Formik
             initialValues={{
               username: "",

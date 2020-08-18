@@ -1,19 +1,17 @@
 import React, { Component } from "react";
 import { Formik, Form, Field } from "formik";
-import {
-  Button,
-  Container,
-  TextField,
-  Typography,
-  withStyles,
-} from "@material-ui/core";
+import { Button, Container, TextField, withStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { Grid } from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Typography from "@material-ui/core/Typography";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const styles = (theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(4),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -41,132 +39,138 @@ const validationSchema = yup.object({
 });
 class signUpComponent extends Component {
   render() {
-    const paper = {
-      marginTop: 8,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-    };
-
     const { classes } = this.props;
     console.log(this.props);
     return (
       <>
-        <Formik
-          initialValues={{
-            prenom: "",
-            nom: "",
-            username: "",
-            password: "",
-            telephone: "",
-            adresse: "",
-          }}
-          onSubmit={(values) => {
-            //   // setFormData(values);
-            //   // nextStep();
-            this.props.addUser(values, this.props.history);
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign up
+            </Typography>
+            <div className={classes.paper}>
+              <Formik
+                initialValues={{
+                  prenom: "",
+                  nom: "",
+                  username: "",
+                  password: "",
+                  telephone: "",
+                  adresse: "",
+                }}
+                onSubmit={(values) => {
+                  //   // setFormData(values);
+                  //   // nextStep();
+                  this.props.addUser(values, this.props.history);
 
-            console.log(values);
-          }}
-          validationSchema={validationSchema}
-        >
-          {({ values, errors, touched, handleSubmit }) => (
-            <div style={{ paper }}>
-              <Container component="main" maxWidth="xs">
-                <Form className={classes.form} noValidate onSubmit={handleSubmit}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                      <Field
-                        name="prenom"
-                        label="Prénom *"
-                        margin="normal"
-                        value={values.prenom}
-                        as={TextField}
-                        error={touched.prenom && errors.prenom}
-                        helperText={touched.prenom && errors.prenom}
-                      />
+                  console.log(values);
+                }}
+                validationSchema={validationSchema}
+              >
+                {({ values, errors, touched, handleSubmit }) => (
+                  <Form
+                    className={classes.form}
+                    noValidate
+                    onSubmit={handleSubmit}
+                  >
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} sm={6}>
+                        <Field
+                          name="prenom"
+                          label="Prénom *"
+                          margin="normal"
+                          value={values.prenom}
+                          as={TextField}
+                          error={touched.prenom && errors.prenom}
+                          helperText={touched.prenom && errors.prenom}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <Field
+                          name="nom"
+                          label="Nom *"
+                          margin="normal"
+                          value={values.nom}
+                          as={TextField}
+                          error={touched.nom && errors.nom}
+                          helperText={touched.nom && errors.nom}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <Field
+                          type="email"
+                          name="username"
+                          label="Email *"
+                          margin="normal"
+                          value={values.username}
+                          as={TextField}
+                          error={touched.username && errors.username}
+                          helperText={touched.username && errors.username}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <Field
+                          type="password"
+                          name="password"
+                          label="Password *"
+                          margin="normal"
+                          value={values.password}
+                          as={TextField}
+                          error={touched.password && errors.password}
+                          helperText={touched.password && errors.password}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <Field
+                          type="telephone"
+                          name="telephone"
+                          label="telephone *"
+                          margin="normal"
+                          value={values.telephone}
+                          as={TextField}
+                          error={touched.telephone && errors.telephone}
+                          helperText={touched.telephone && errors.telephone}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <Field
+                          type="text"
+                          name="adresse"
+                          label="adresse *"
+                          margin="normal"
+                          value={values.adresse}
+                          as={TextField}
+                          error={touched.adresse && errors.adresse}
+                          helperText={touched.adresse && errors.adresse}
+                        />
+                      </Grid>
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                      >
+                        Submit
+                      </Button>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <Field
-                        name="nom"
-                        label="Nom *"
-                        margin="normal"
-                        value={values.nom}
-                        as={TextField}
-                        error={touched.nom && errors.nom}
-                        helperText={touched.nom && errors.nom}
-                      />
+                    <Grid container justify="flex-end">
+                      <Grid item>
+                        <Link to="/login" variant="body2">
+                          {"possédez déjà un compte ? CONNECTEZ-VOUS"}
+                        </Link>
+                      </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <Field
-                        type="email"
-                        name="username"
-                        label="Email *"
-                        margin="normal"
-                        value={values.username}
-                        as={TextField}
-                        error={touched.username && errors.username}
-                        helperText={touched.username && errors.username}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <Field
-                        type="password"
-                        name="password"
-                        label="Password *"
-                        margin="normal"
-                        value={values.password}
-                        as={TextField}
-                        error={touched.password && errors.password}
-                        helperText={touched.password && errors.password}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <Field
-                        type="telephone"
-                        name="telephone"
-                        label="telephone *"
-                        margin="normal"
-                        value={values.telephone}
-                        as={TextField}
-                        error={touched.telephone && errors.telephone}
-                        helperText={touched.telephone && errors.telephone}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <Field
-                        type="text"
-                        name="adresse"
-                        label="adresse *"
-                        margin="normal"
-                        value={values.adresse}
-                        as={TextField}
-                        error={touched.adresse && errors.adresse}
-                        helperText={touched.adresse && errors.adresse}
-                      />
-                    </Grid>
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      className={classes.submit}
-                    >
-                      Submit
-                    </Button>
-                  </Grid>
-                </Form>
-                <Grid container justify="flex-end">
-                  <Grid item>
-                    <Link to="/login" variant="body2">
-                      possédez déjà un compte ? CONNECTEZ-VOUS
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Container>
+                  </Form>
+                )}
+              </Formik>
             </div>
-          )}
-        </Formik>
+          </div>
+        </Container>
       </>
     );
   }

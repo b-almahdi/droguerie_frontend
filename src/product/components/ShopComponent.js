@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import ProductList from "./ProductList";
+import AddToCartModal from "./AddToCartModal";
 
 class ShopComponent extends Component {
   constructor(props) {
