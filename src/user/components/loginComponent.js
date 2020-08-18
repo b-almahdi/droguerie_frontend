@@ -7,11 +7,11 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core";
+import { withStyles, InputLabel, MenuItem } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { Formik, Field } from "formik";
 import { LinearProgress } from "@material-ui/core";
-import { TextField } from "formik-material-ui";
+import { TextField, Select } from "formik-material-ui";
 import * as yup from "yup";
 const styles = (theme) => ({
   paper: {
@@ -55,22 +55,19 @@ class loginComponent extends Component {
               password: "",
             }}
             validationSchema={validationSchema}
-            // onSubmit={(values, { setSubmitting }) => {
-            //   //this.props.logInUser(values);
-            //   console.log(values);
-            // }}
             onSubmit={(values, actions) => {
-              //   // setFormData(values);
-              //   // nextStep();
-              //this.props.addUser(values, this.props.history);
-              this.props.logInUser(values);
+              this.props.logInUser(values, actions, this.props.history);
               console.log(values);
-              actions.setSubmitting(this.props.isSubmitting);
-
-              // actions.setSubmitting(this.props.isSubmitting);
             }}
           >
-            {({ submitForm, isSubmitting, handleSubmit }) => (
+            {({
+              submitForm,
+              isSubmitting,
+              handleSubmit,
+              errors,
+              touched,
+              status,
+            }) => (
               <form className={classes.form} onSubmit={handleSubmit}>
                 <Field
                   variant="outlined"
@@ -97,9 +94,12 @@ class loginComponent extends Component {
                   id="password"
                   autoComplete="current-password"
                   component={TextField}
+                  // error={errors & errors.msg}
+                  //  helperText={errors.msg}
                 />
-                {isSubmitting && <LinearProgress />}
 
+                {isSubmitting && <LinearProgress />}
+                {errors && errors.msg}
                 <br />
                 <Button
                   variant="contained"
@@ -112,13 +112,8 @@ class loginComponent extends Component {
                   Submit
                 </Button>
                 <Grid container>
-                  <Grid item xs>
-                    <Link href="#" variant="body2">
-                      Forgot password?
-                    </Link>
-                  </Grid>
                   <Grid item>
-                    <Link href="#" variant="body2">
+                    <Link href="/signup" variant="body2">
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>

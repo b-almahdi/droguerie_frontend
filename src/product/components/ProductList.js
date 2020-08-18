@@ -62,6 +62,9 @@ class ProductList extends React.Component {
               </CardContent>
             </Link>
             <CardActions>
+              <Link to="/cart">
+
+
               <Button
                 size="small"
                 color="primary"
@@ -70,6 +73,7 @@ class ProductList extends React.Component {
               >
                 Add to Cart
               </Button>
+              </Link>
             </CardActions>
           </Card>
         </Grid>

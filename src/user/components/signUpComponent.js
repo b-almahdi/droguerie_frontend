@@ -1,9 +1,35 @@
 import React, { Component } from "react";
 import { Formik, Form, Field } from "formik";
-import { Button, Container, TextField } from "@material-ui/core";
-
+import {
+  Button,
+  Container,
+  TextField,
+  Typography,
+  withStyles,
+} from "@material-ui/core";
+import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { Grid } from "@material-ui/core";
+
+const styles = (theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+});
 
 const validationSchema = yup.object({
   prenom: yup.string().required("First Name is required").max(20),
@@ -13,7 +39,7 @@ const validationSchema = yup.object({
   telephone: yup.string().required("Phone required").max(20),
   adresse: yup.string().required("adresse required").min(8),
 });
-export class signUpComponent extends Component {
+class signUpComponent extends Component {
   render() {
     const paper = {
       marginTop: 8,
@@ -21,6 +47,9 @@ export class signUpComponent extends Component {
       flexDirection: "column",
       alignItems: "center",
     };
+
+    const { classes } = this.props;
+    console.log(this.props);
     return (
       <>
         <Formik
@@ -44,7 +73,7 @@ export class signUpComponent extends Component {
           {({ values, errors, touched, handleSubmit }) => (
             <div style={{ paper }}>
               <Container component="main" maxWidth="xs">
-                <Form onSubmit={handleSubmit}>
+                <Form className={classes.form} noValidate onSubmit={handleSubmit}>
                   <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                       <Field
@@ -121,11 +150,19 @@ export class signUpComponent extends Component {
                       fullWidth
                       variant="contained"
                       color="primary"
+                      className={classes.submit}
                     >
                       Submit
                     </Button>
                   </Grid>
                 </Form>
+                <Grid container justify="flex-end">
+                  <Grid item>
+                    <Link to="/login" variant="body2">
+                      possédez déjà un compte ? CONNECTEZ-VOUS
+                    </Link>
+                  </Grid>
+                </Grid>
               </Container>
             </div>
           )}
@@ -134,5 +171,4 @@ export class signUpComponent extends Component {
     );
   }
 }
-
-export default signUpComponent;
+export default withStyles(styles)(signUpComponent);

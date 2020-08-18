@@ -1,8 +1,4 @@
-import {
-  USER_CONNECTED,
-  USER_CONNECTED_COMPLETED,
-  LOGIN_USER,
-} from "./actions";
+import { USER_CONNECTED_COMPLETED, LOGIN_USER } from "./actions";
 
 const initialState = {
   isSubmitting: false,

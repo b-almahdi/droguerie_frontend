@@ -1,10 +1,8 @@
-import { call, put, delay } from "redux-saga/effects";
+import { call, put } from "redux-saga/effects";
 
 import axios from "axios";
 import {
-  SET_PRODUITS,
   USER_CREATED,
-  LOGIN_USER,
   USER_CONNECTED,
   USER_CONNECTED_COMPLETED,
 } from "./actions";
@@ -15,7 +13,7 @@ export function* workerPostUser(action) {
   try {
     console.log("workerPostUser");
 
-    const result = yield call(axios.post, uri + "/signup", action.value);
+    yield call(axios.post, uri + "/signup", action.value);
     action.history.push("/produits");
 
     console.log("Added a user successfullt");
@@ -27,22 +25,35 @@ export function* workerPostUser(action) {
 }
 
 export function* workerLogInUser(action) {
+  const { resetForm, setErrors, setSubmitting } = action.meta;
+  console.log(action.payload.value);
   try {
-    console.log("workerLogInUser");
-    yield delay(5000);
+    resetForm();
 
-    const result = yield call(axios.post, uri + "/login", action.value);
-    const { token } = result.data;
-    // store the token in the localStorage
-    localStorage.setItem("jwtToken", token);
-    action.history.push("/produits");
+    const result = yield call(axios.post, uri + "/login", action.payload);
+    console.log(result);
 
-    console.log("user connected");
+    if (result.data.error) {
+      console.log("Failed error");
+      setSubmitting(false);
+      setErrors({ msg: result.data.errorMessage });
+      yield put({ type: USER_CONNECTED_COMPLETED });
+    } else {
+      const { token } = result.data.message;
+      // store the token in the localStorage
+      localStorage.setItem("jwtToken", token);
+      //  yield call(resetForm);
+      action.history.push("/Produits");
 
-    yield put({ type: USER_CONNECTED });
-    yield put({ type: USER_CONNECTED_COMPLETED });
+      console.log("user connected");
+      setSubmitting(false);
+      yield put({ type: USER_CONNECTED });
+      yield put({ type: USER_CONNECTED_COMPLETED });
+    }
   } catch {
     console.log("Failed");
+    setSubmitting(false);
+    setErrors({ msg: "error" });
     yield put({ type: USER_CONNECTED_COMPLETED });
   }
 }

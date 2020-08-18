@@ -9,8 +9,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    logInUser: (user, history) => {
-      dispatch({ type: LOGIN_USER, value: user, history: history });
+    logInUser: (payload, actions,history) => {
+      dispatch({ type: LOGIN_USER, payload: payload, meta: actions,history:history });
     },
   };
 };

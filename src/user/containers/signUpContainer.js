@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { POST_USER } from "./../actions";
-import { signUpComponent } from "./../components/signUpComponent";
+import signUpComponent from "../components/signUpComponent";
 
 const mapDispatchToProps = (dispatch) => {
   return {
